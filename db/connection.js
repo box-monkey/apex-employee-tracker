@@ -1,7 +1,7 @@
 // connect to database
 const mysql = require('mysql12');
 
-const connection = mysql.createConnection({
+const dbConnection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'ninjas',
@@ -9,4 +9,4 @@ const connection = mysql.createConnection({
 
 });
 
-module.exports = connection;
+module.exports = dbConnection;
