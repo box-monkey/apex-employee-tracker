@@ -1,20 +1,6 @@
--- reference 
+-- holds our seed data incase we need to repopulate data and provides overall hard coded input for our data tables.
 
--- INSERT INTO books (id, book_name)
--- VALUES 
---   (1, "Pride and Prejudice"),
---   (2,"Dracula"),
---   (3,"100 Years of Solitude"),
---   (4,"The Epic of Gilgamesh"),
---   (5, "The Waiting Years");
-
--- INSERT INTO categories (id, category_name) 
--- VALUES
---   (1, "Fiction"),
---   (2, "Non-Fiction");
-
--- INSERT INTO prices (id, price) VALUES (1, 10.55);
-
+-- overall database departments
 INSERT INTO department (department_id)
 VALUES ('Sales'),
 INSERT INTO department (department_id)
@@ -24,6 +10,7 @@ VALUES ('Engineer'),
 INSERT INTO department (department_id)
 VALUES ('Legal');
 
+-- overall database roles
 INSERT INTO roles (title, salary, department_id)
 VALUES ('Salesperson', 80000, 1),
 INSERT INTO roles (title, salary, department_id)
@@ -39,6 +26,7 @@ VALUES ('Legal Team Lead', 250000, 4),
 INSERT INTO roles (title, salary, department_id)
 VALUES ('Lawyer', 190000, 4);
 
+-- overall database employee
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES ('John', 'Douffe', 1, null),
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
