@@ -182,49 +182,36 @@ function addRole() {
 }
 
 function updateRole() {
-  dbConnection.query(
-    "SELECT * FROM employee ORDER BY first_name",
-    (err, res) => {
-      let employees = res.map((employee) => {
-        console.log(res);
-        return {
-          name: employee.first_name + " " + employee.last_name,
-          value: employee.id,
-        };
-      });
-      dbConnection.query("SELECT * FROM roles ORDER BY title", (err, res) => {
-        let roles = res.map((role) => {
-          return {
-            name: role.title,
-            value: role.id,
-          };
+  dbConnection.query("SELECT * FROM employee;", (err, res) => {
+    let employees = res.map((id, first_name) => ({ id: id, name: first_name + 1 }));
+    
+
+    dbConnection.query("SELECT * FROM role;", (err, res) => {
+      let roles = res.map((role) => role.id);
+
+      inquirer
+        .prompt([
+          {
+            type: "list",
+            name: "update_employee",
+            message: "What is the employees id number who would you like to update?",
+            choices: employees,
+          },
+          {
+            type: "list",
+            name: "update_role",
+            message: "What is the new role id number?",
+            choices: roles,
+          },
+        ])
+        .then((res) => {
+          console.log(res);
+          dbConnection.query("UPDATE employee SET ? WHERE ?;", [
+            {role_id: res.update_role},
+            {id: res.update_employee}
+          ]
+          );
         });
-        inquirer
-          .prompt([
-            {
-              type: "list",
-              name: "update_employee",
-              message: "Which employee would you like to update?",
-              choices: employees,
-            },
-            {
-              type: "list",
-              name: "update_role",
-              message: "What is the new role of the employee?",
-              choices: roles,
-            },
-          ])
-          .then((res) => {
-            dbConnection.query(
-              "UPDATE employees SET role_id = ? WHERE id =?",
-              [res.update_role, res.update_employee],
-              (err, res) => {
-                console.table(res);
-                viewEmployees();
-              }
-            );
-          });
-      });
-    }
-  );
+    });
+  });
 }
